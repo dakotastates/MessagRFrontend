@@ -4,7 +4,9 @@ import { logout } from "../actions/AuthActions";
 import { Switch} from "react-router-dom";
 import PrivateRoute from "../helpers/PrivateRoute";
 import Home from "../pages/Home";
-
+import Messages from "../pages/Messages";
+import Profile from "../pages/Profile";
+import NavBar from "../components/NavBar";
 
 
 function Dashboard(props) {
@@ -22,7 +24,7 @@ function Dashboard(props) {
         <div>
           <h1>FixStarter</h1>
           <div className="header">
-
+          <NavBar user={props.user} />
             <div className="logout">
             <br/>
               <button onClick={handleLogout}>Logout</button>
@@ -34,8 +36,16 @@ function Dashboard(props) {
           </div>
 
           <Switch>
+            <PrivateRoute path="/profile/:id" >
+              <Profile user={props.user}/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/messages" >
+              <Messages user={props.user}/>
+            </PrivateRoute>
+
             <PrivateRoute path="/" >
-            <Home user={props.user}/>
+              <Home user={props.user}/>
             </PrivateRoute>
           </Switch>
 
